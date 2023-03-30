@@ -14,9 +14,7 @@ int main(void)
 	int rand_pos;
 
 	srand(time(0));
-
 	rand_pos = rand() % 24;
-	// printf("%lu\n",sizeof(msg));
 	msg[rand_pos] = 'X';
 	printf("%s", msg);
 	return (0);
