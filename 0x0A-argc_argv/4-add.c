@@ -2,10 +2,9 @@
 #include <stdlib.h>
 
 /**
- * main - prints the product of two numbers.
- * @argc: argument count
- * @argv: argument vector
- * Return: 0
+ * _isdigit - checks if a string is a digit
+ * @s: string to check
+ * Return: 1 if digit, 0 otherwise
  */
 
 int _isdigit(char *s)
@@ -20,6 +19,13 @@ int _isdigit(char *s)
 
 	return (1);
 }
+
+/**
+ * main - prints the product of two numbers.
+ * @argc: argument count
+ * @argv: argument vector
+ * Return: 0
+ */
 
 int main(int argc, char *argv[])
 {
