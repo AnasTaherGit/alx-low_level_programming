@@ -37,5 +37,12 @@ int main(void)
 		printf("0x%02x", s1[i]);
 	}
 	printf("\n");
+	// // _strncpy(s1, "Talk is cheap. Show me the code.\n", 14);
+	// _strncpy(s1 + 10, "Talk is cheap. Show me the code.\n", 14);
+	// // _strncpy(s1, "Talk is cheap. Show me the code.\n", 0);
+	// // _strncpy(s1, "", 4);
+	// // _strncpy(s1, "Talk is cheap. Show me the code.\n", 64);
+	// printf("%s\n", s1);
+
 	return (0);
 }
