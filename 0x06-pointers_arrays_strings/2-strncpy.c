@@ -18,12 +18,12 @@ char *_strncpy(char *dest, char *src, int n)
 	if (srclen > n)
 		srclen = n;
 
-	for (i = 0; i < srclen; i++)
+	for (i = 0; i < srclen + 1; i++)
 	{
 		dest[i] = src[i];
 	}
 
-	dest[srclen] = '\0';
+	dest[srclen + 1] = '\0';
 
 	return (dest);
 }
