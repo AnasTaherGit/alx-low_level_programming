@@ -28,6 +28,7 @@ void print_all(const char *const format, ...)
 		case 's':
 		{
 			char *str = va_arg(args, char *);
+
 			printf("%s%s", separator, str ? str : "(nil)");
 		}
 		break;
