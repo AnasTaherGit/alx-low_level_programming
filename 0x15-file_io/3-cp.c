@@ -29,7 +29,8 @@ int main(int argc, char *argv[])
 	if (src_fd == -1)
 		error_and_exit("Error: Can't read from file ", 98, argv[1]);
 
-	dest_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+	dest_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC,
+				   S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 	if (dest_fd == -1)
 		error_and_exit("Error: Can't write to ", 99, argv[2]);
 
@@ -53,7 +54,8 @@ int main(int argc, char *argv[])
 }
 
 /**
- * error_and_exit - prints an error message and exits with a specified error code
+ * error_and_exit - prints an error message and
+ *  exits with a specified error code
  * @message: error message to print
  * @error_code: exit code
  * @file_name: name of the file associated with the error
