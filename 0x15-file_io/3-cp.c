@@ -2,11 +2,12 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
 
 #define BUFFER_SIZE 1024
 
-void error_and_exit(char *message, int error_code);
+void error_and_exit(char *message, int error_code, char *file_name);
 
 /**
  * main - Entry point
@@ -22,46 +23,43 @@ int main(int argc, char *argv[])
 	char buffer[BUFFER_SIZE];
 
 	if (argc != 3)
-		error_and_exit("Usage: cp file_from file_to\n", 97);
+		error_and_exit("Usage: cp file_from file_to", 97, "");
 
 	src_fd = open(argv[1], O_RDONLY);
 	if (src_fd == -1)
-		error_and_exit("Error: Can't read from file ", 98);
+		error_and_exit("Error: Can't read from file ", 98, argv[1]);
 
-	dest_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC,
-					 S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+	dest_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 	if (dest_fd == -1)
-		error_and_exit("Error: Can't write to ", 99);
+		error_and_exit("Error: Can't write to ", 99, argv[2]);
 
 	while ((read_bytes = read(src_fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		write_bytes = write(dest_fd, buffer, read_bytes);
 		if (write_bytes == -1 || write_bytes != read_bytes)
-			error_and_exit("Error: Can't write to ", 99);
+			error_and_exit("Error: Can't write to ", 99, argv[2]);
 	}
 
 	if (read_bytes == -1)
-		error_and_exit("Error: Can't read from file ", 98);
+		error_and_exit("Error: Can't read from file ", 98, argv[1]);
 
 	if (close(src_fd) == -1)
-		error_and_exit("Error: Can't close fd ", 100);
+		error_and_exit("Error: Can't close fd ", 100, "");
 
 	if (close(dest_fd) == -1)
-		error_and_exit("Error: Can't close fd ", 100);
+		error_and_exit("Error: Can't close fd ", 100, "");
 
 	return (0);
 }
 
 /**
- * error_and_exit - prints an error message and exits
- *  with a specified error code
+ * error_and_exit - prints an error message and exits with a specified error code
  * @message: error message to print
  * @error_code: exit code
+ * @file_name: name of the file associated with the error
  */
-void error_and_exit(char *message, int error_code)
+void error_and_exit(char *message, int error_code, char *file_name)
 {
-	dprintf(STDERR_FILENO, "%s%s\n", message,
-	 (error_code == 98 || error_code == 99) ?
-	  (*(message + 1) == 'C' ? *(message + 19) : *(message + 24)) : "");
+	dprintf(STDERR_FILENO, "%s%s\n", message, file_name);
 	exit(error_code);
 }
